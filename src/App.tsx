@@ -1,9 +1,9 @@
 import './App.css';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 
-interface UploadProfilePicProps {
-  // Add any additional props you might need here
-}
+// interface UploadProfilePicProps {
+//   // Add any additional props you might need here
+// }
 
 // const App: React.FC<UploadProfilePicProps> = () => {
 //   const [selectedFile, setSelectedFile] = useState<File | null>(null);
