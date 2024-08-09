@@ -20,7 +20,7 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        
+
       - name: Install dependencies  
         run: node -v
 
@@ -39,6 +39,10 @@ jobs:
         run: |
           sshpass -p "${{ env.PASSWORD }}" scp -o StrictHostKeyChecking=no -r build ${{ env.USERNAME }}@${{ env.HOST }}:${{ env.REMOTE_DIR }}
 
+
+      - name: Install pm2 on VM
+        run: |
+          sshpass -p "${{ secrets.PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ secrets.USERNAME }}@${{ secrets.HOST }} "npm install -g pm2"
       - name: Restart serve with pm2
         env:
           HOST: ${{ secrets.HOST }}
