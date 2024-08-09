@@ -16,10 +16,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18.x'
+          node-version: '20.x'
 
       - name: Install dependencies
         run: npm install
+        
+      - name: Install dependencies  
+        run: node -v
 
       - name: Build React app
         run: npm run build
