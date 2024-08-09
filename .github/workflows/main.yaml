@@ -48,5 +48,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
           script: |
-            pm2 start npx --name 'react-app' -- serve -s ${{ secrets.REMOTE_DIR }}/build -l 5000 --watch --update-env && pm2 save
+            npm config get prefix
+            export PATH=\$PATH:$(npm config get prefix)/bin
+            pm2 list
         
