@@ -27,20 +27,20 @@ jobs:
       - name: Install sshpass
         run: sudo apt-get install -y sshpass
 
-- name: Deploy to VM using password
-  env:
-    HOST: ${{ secrets.HOST }}
-    USERNAME: ${{ secrets.USERNAME }}
-    PASSWORD: ${{ secrets.PASSWORD }}
-    REMOTE_DIR: ${{ secrets.REMOTE_DIR }}
-  run: |
-    sshpass -p "${{ env.PASSWORD }}" scp -o StrictHostKeyChecking=no -r build ${{ env.USERNAME }}@${{ env.HOST }}:${{ env.REMOTE_DIR }}
+      - name: Deploy to VM using password
+        env:
+          HOST: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          REMOTE_DIR: ${{ secrets.REMOTE_DIR }}
+        run: |
+          sshpass -p "${{ env.PASSWORD }}" scp -o StrictHostKeyChecking=no -r build ${{ env.USERNAME }}@${{ env.HOST }}:${{ env.REMOTE_DIR }}
 
-- name: Restart serve with pm2
-  env:
-    HOST: ${{ secrets.HOST }}
-    USERNAME: ${{ secrets.USERNAME }}
-    PASSWORD: ${{ secrets.PASSWORD }}
-    REMOTE_DIR: ${{ secrets.REMOTE_DIR }}
-  run: |
-    sshpass -p "${{ env.PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ env.USERNAME }}@${{ env.HOST }} "pm2 start npx --name 'react-app' -- serve -s ${{ env.REMOTE_DIR }}/build -l 5000 --watch --update-env && pm2 save"
+      - name: Restart serve with pm2
+        env:
+          HOST: ${{ secrets.HOST }}
+          USERNAME: ${{ secrets.USERNAME }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          REMOTE_DIR: ${{ secrets.REMOTE_DIR }}
+        run: |
+          sshpass -p "${{ env.PASSWORD }}" ssh -o StrictHostKeyChecking=no ${{ env.USERNAME }}@${{ env.HOST }} "pm2 start npx --name 'react-app' -- serve -s ${{ env.REMOTE_DIR }}/build -l 5000 --watch --update-env && pm2 save"
